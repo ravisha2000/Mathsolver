@@ -27,7 +27,7 @@ import java.awt.event.ActionListener;
 public class level2 extends javax.swing.JFrame {
 
     private Timer timer;
-    private int countDownValue = 20;
+    private int countDownValue = 30;
     
      
      
