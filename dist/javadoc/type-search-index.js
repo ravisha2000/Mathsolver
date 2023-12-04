@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"code","l":"DBconnect"},{"p":"gui","l":"gameover"},{"p":"gui","l":"leaderboard"},{"p":"gui","l":"level2"},{"p":"gui","l":"login"},{"p":"code","l":"Mathsolver"},{"p":"gui","l":"menu"},{"p":"gui","l":"score"},{"p":"gui","l":"signup"},{"p":"gui","l":"start"}];updateSearchResults();
