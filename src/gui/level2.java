@@ -14,23 +14,23 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import com.google.gson.JsonObject;
 import com.google.gson.Gson;
-import static gui.start.score;
+import com.google.gson.JsonSyntaxException;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 
 /**
  *
- * @author ebay
+ * @author Ravisha Singhabahu
  */
 public class level2 extends javax.swing.JFrame {
 
     private Timer timer;
     private int countDownValue = 30;
-    
-     
-     
+    static int score = 0;
+
     /**
      * Creates new form level2
      */
@@ -41,9 +41,8 @@ public class level2 extends javax.swing.JFrame {
         startTimer();
         initComponents();
         
-        
-        
-                try {
+    // connect tomato API url link to level2 gui page by json format    
+        try {
 
             URL url = new URL("https://marcconrad.com/uob/tomato/api.php?out=json");
 
@@ -54,7 +53,7 @@ public class level2 extends javax.swing.JFrame {
             int responseCode = conn.getResponseCode();
 
          if (responseCode == 200) {
-                
+            // responce code is ok   
                 BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                 String inputLine;
                 StringBuilder response = new StringBuilder();
@@ -76,8 +75,7 @@ public class level2 extends javax.swing.JFrame {
         System.out.println(question);
         System.out.println(solution);
        
-        // Update GUI components - set imageUrl to label1, solution to answer field
-        // Example:
+    // Update GUI components 
         
         jLabel5.setText(solution);
         URL urlImage = new URL(question);
@@ -87,13 +85,12 @@ public class level2 extends javax.swing.JFrame {
         
     } else {
         // Handle non-200 response codes
-        // Example:
         System.out.println("Error in API request. Response code: " + responseCode);
            
          }
 
            
-        } catch (Exception e) {
+        } catch (JsonSyntaxException | IOException e) {
             e.printStackTrace();
         }
        
@@ -109,7 +106,7 @@ public class level2 extends javax.swing.JFrame {
                 } else {
                     timer.stop();
                    
-                    // Perform actions when the timer reaches zero (Level 1 ends)
+                    // Perform actions when the timer reaches zero 
                     System.out.println("Time Over");
                     
                 }
@@ -130,7 +127,8 @@ public class level2 extends javax.swing.JFrame {
                  });
         if (value == 0) {
                  JOptionPane.showMessageDialog(this, "Time Over!",
-                "ERROR", JOptionPane.ERROR_MESSAGE);
+                "ERROR", JOptionPane.ERROR_MESSAGE); // Time Over error message  
+                  
                     gameover start = new gameover();
                     start.setVisible(true);
                     this.dispose();
@@ -182,7 +180,7 @@ public class level2 extends javax.swing.JFrame {
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("What is the answer?");
 
-        txt1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        txt1.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
         txt1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         jLabel5.setBackground(new java.awt.Color(204, 204, 255));
@@ -235,7 +233,7 @@ public class level2 extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addComponent(sc, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
                         .addComponent(times1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -279,21 +277,21 @@ public class level2 extends javax.swing.JFrame {
                 "INFORMATION",
                 JOptionPane.INFORMATION_MESSAGE);
                 timer.stop();
-
+        // if answer is correct, you will get 5 marks for your score
             score = score + 5;
 
             level2 m = new level2();
-            m.setVisible(true);
+            m.setVisible(true); // level2 page display
             this.dispose();
 
         } else {
 
             JOptionPane.showMessageDialog(this, "Wrong!! Try Again",
                 "ERROR", JOptionPane.ERROR_MESSAGE);
-            txt1.setText(" ");
+            
             gameover start = new gameover();
             start.setVisible(true);
-            this.dispose();
+            this.dispose();  // move to gameover page
 
         }
 

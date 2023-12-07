@@ -4,14 +4,14 @@
  */
 package gui;
 
+import java.awt.HeadlessException;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
-import code.DBconnect;
 /**
  *
- * @author ebay
+ * @author Ravisha Singhabahu
  */
 public class signup extends javax.swing.JFrame {
 
@@ -182,6 +182,7 @@ public class signup extends javax.swing.JFrame {
            
             
             // Check if the email already exists in the database
+            
             String checkExistingEmailQuery = "SELECT * FROM user WHERE email = '" + email + "'";
             try (ResultSet existingEmailResult = stmt.executeQuery(checkExistingEmailQuery)) {
                 if (!username.isEmpty() && !pw.isEmpty() && !confirmpw.isEmpty() && !email.isEmpty() && existingEmailResult.next()) {
@@ -192,8 +193,8 @@ public class signup extends javax.swing.JFrame {
                     this.dispose();
                     
                 } else if (!username.isEmpty() && !pw.isEmpty() && !confirmpw.isEmpty() && !email.isEmpty() && pw.equals(confirmpw)) {
-                    // Email not found in the database, so proceed with signup
                     
+                 // Email not found in the database, so proceed with signup
                     String signUpQuery = "INSERT INTO user (username, email, pw) VALUES ('" + username + "', '" + email + "', '" + pw + "')";
                     stmt.executeUpdate(signUpQuery);
                     JOptionPane.showMessageDialog(this, "Registered successfully!.");
@@ -209,12 +210,9 @@ public class signup extends javax.swing.JFrame {
            
             
             
-        } catch (SQLException se) {
+        } catch (SQLException | HeadlessException | ClassNotFoundException se) {
             se.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-       
-            }           
+        }           
                         
                        
             

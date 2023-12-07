@@ -13,19 +13,17 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author ebay
+ * @author Ravisha Singhabahu
  */
 public class Mathsolver {
     
-    /**
-     *
-     * @param args
-     * @throws ClassNotFoundException
+    /*
+      @param args main
      */
     public static void main(String[] args) {
         try {
             connect();
-            System.out.println("ok");
+            System.out.println("Let's Begin");
             
             login r = new login();
             r.setVisible(true);

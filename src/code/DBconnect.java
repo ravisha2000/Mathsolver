@@ -8,11 +8,12 @@ package code;
 import java.sql.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 /**
  *
- * @author ebay
+ * @author Ravisha Singhabahu
  */
+
+//connect to the mysql database of mathsolver
 public class DBconnect {
         public static Connection connect() throws ClassNotFoundException {
         
@@ -27,7 +28,5 @@ public class DBconnect {
             return conn;
     }
 
-    public static Object getConnection() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+   
 }

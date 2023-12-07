@@ -6,7 +6,7 @@ package code;
 
 /**
  *
- * @author Imal
+ * @author Ravisha Singhabahu
  */
 public class UserSession {
     

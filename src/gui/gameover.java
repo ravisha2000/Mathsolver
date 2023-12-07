@@ -7,7 +7,7 @@ package gui;
 
 import code.DBconnect;
 import code.UserSession;
-import static gui.start.score;
+import static gui.level1.score;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author ebay
+ * @author Ravisha Singhabahu
  */
 public class gameover extends javax.swing.JFrame {
 
@@ -28,13 +28,12 @@ public class gameover extends javax.swing.JFrame {
     public gameover() {
         initComponents();
       
-        jLabel3.setText(String.valueOf(score));
-       
-      
-         
+         jLabel3.setText(String.valueOf(score));
+    // logged-in-username retrieve by UserSession class
          String loggeduser = UserSession.getLoggedInUsername();
          System.out.println("user :" + loggeduser);
          
+    // insert username and score to the score table in mathsolver database  
          String insertQuery = "INSERT INTO score (username, score) VALUES (?, ?)";
             try (PreparedStatement preparedStatement = DBconnect.connect().prepareStatement(insertQuery)) {
                 preparedStatement.setString(1, loggeduser);
@@ -47,13 +46,6 @@ public class gameover extends javax.swing.JFrame {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(gameover.class.getName()).log(Level.SEVERE, null, ex);
         }
-                    
-                   
-                    
-                    
-                  
-          
-          
        
     }
     /**
@@ -182,13 +174,12 @@ public class gameover extends javax.swing.JFrame {
            
                 int option = JOptionPane.showConfirmDialog(null, "Are you sure you want to quit?", "Quit Game", JOptionPane.YES_NO_OPTION);
                 if (option == JOptionPane.YES_OPTION) {
-                    // Perform any necessary cleanup or actions before quitting the game
+               // Perform any necessary cleanup or actions before quitting the game
                     System.out.println("Game is quitting...");
-                    System.exit(0); // Exit the application
+                    System.exit(0); 
+               // Exit the application 
                 }
-            
-        
-            
+           
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed

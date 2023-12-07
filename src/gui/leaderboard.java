@@ -6,45 +6,41 @@ package gui;
 
 import code.DBconnect;
 import java.sql.*;
-import java.awt.*;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author ebay
+ * @author Ravisha Singhabahu
  */
 public class leaderboard extends javax.swing.JFrame {
 
     /**
-     * Creates new form leaderboard
+     * Creates new form leader board
      */
     public leaderboard() {
         initComponents();
         
-        try{ 
+     try{ 
+    // select top 5 high scores with username from score table 
         String query = "SELECT username, MAX(score) AS high_score FROM score GROUP BY username ORDER BY high_score DESC LIMIT 5";
         PreparedStatement  ps= DBconnect.connect().prepareStatement(query);
         ResultSet  rs = ps.executeQuery(query);
         
-       
-        
 
-            // Fetching data from the result set and adding it to the table model
-             DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-            while (rs.next()) {
+     // Fetching data from the result set and adding it to the table model
+          DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+          while (rs.next()) {
+                
                 String username = rs.getString("username");
                 int highScore = rs.getInt("high_score");
                 model.addRow(new Object[]{username, highScore});
 
-                
             }
 
            
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-       }
+        }
         
         } 
     

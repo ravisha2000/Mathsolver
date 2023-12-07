@@ -4,13 +4,11 @@
  */
 package gui;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 
 /**
  *
- * @author ebay
+ * @author Ravisha Singhabahu
  */
 public class menu extends javax.swing.JFrame {
 
@@ -39,6 +37,8 @@ public class menu extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jPanel1.setBackground(new java.awt.Color(102, 255, 255));
+
         jButton1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jButton1.setText("LEVEL 2");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -64,7 +64,7 @@ public class menu extends javax.swing.JFrame {
         });
 
         jButton4.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jButton4.setText("START");
+        jButton4.setText("LEVEL 1");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
@@ -125,7 +125,7 @@ public class menu extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-        start v = new start();
+        level1 v = new level1();
         v.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton4ActionPerformed

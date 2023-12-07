@@ -14,32 +14,34 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import com.google.gson.JsonObject;
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.io.IOException;
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 
 /**
  *
- * @author hp
+ * @author Ravisha Singhabahu
  */
-public class start extends javax.swing.JFrame {
+public class level1 extends javax.swing.JFrame {
 
     static int score = 0;
     private Timer timer;
-    private int countDownValue = 50;
+    private int countDownValue = 40;
    
     
  
     /**
-     * Creates new form main
+     * Creates new form level1
      */
-    public start() {
+    public level1() {
         initComponents();
         startTimer();
 
-
+        
         try {
+        // connect tomato API json url link to level1   
 
             URL url = new URL("https://marcconrad.com/uob/tomato/api.php?out=json");
 
@@ -51,14 +53,14 @@ public class start extends javax.swing.JFrame {
 
          if (responseCode == 200) {
                 
-        BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-                String inputLine;
-                StringBuilder response = new StringBuilder();
-
-                while ((inputLine = in.readLine()) != null) {
-                    response.append(inputLine);
+             StringBuilder response;
+                try (BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()))) {
+                    String inputLine;
+                    response = new StringBuilder();
+                    while ((inputLine = in.readLine()) != null) {
+                        response.append(inputLine);
+                    }
                 }
-                in.close();
 
                 // Parse JSON response using Gson
                 Gson gson = new Gson();
@@ -68,13 +70,11 @@ public class start extends javax.swing.JFrame {
                 String question = jsonResponse.get("question").getAsString();
                 String solution = jsonResponse.get("solution").getAsString();
 
-        
+     // display question and solution   
         System.out.println(question);
         System.out.println(solution);
        
-        // Update GUI components - set imageUrl to label1, solution to answer field
-        // Example:
-        
+     // Update GUI components
         jLabel5.setText(solution);
         URL urlImage = new URL(question);
         BufferedImage image = ImageIO.read(urlImage);
@@ -83,51 +83,44 @@ public class start extends javax.swing.JFrame {
         
     } else {
         // Handle non-200 response codes
-        // Example:
+        
         System.out.println("Error in API request. Response code: " + responseCode);
            
          }
 
            
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (JsonSyntaxException | IOException e) {
         }
        
     }
     
     private void startTimer() {
-             timer = new Timer(1000, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                countDownValue--;
-                if (countDownValue >= 0) {
-                    updateTextField(countDownValue);
-                    
-                } else {
-                    timer.stop();
-                   
-                    // Perform actions when the timer reaches zero (Level 1 ends)
-                    System.out.println("Time Over");
-                    
-                }
-            }
-        });
+             timer = new Timer(1000, (ActionEvent e) -> {
+                 countDownValue--;
+                 if (countDownValue >= 0) {
+                     updateTextField(countDownValue);
+                     
+                 } else {
+                     timer.stop();
+                     
+                     // Perform actions when the timer reaches zero (Level 1 ends)
+                     System.out.println("Game Over");
+                     
+                 }
+             });
         timer.start();
         
              }         
              
              private void updateTextField(int value) {
         // Update the JTextField with the remaining countdown value
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                time.setText("Time left: " + value + " seconds");
-                
-            }
-        
-                 });
+        SwingUtilities.invokeLater(() -> {
+            time.setText("Time left: " + value + " seconds");
+        });
         if (value == 0) {
                  JOptionPane.showMessageDialog(this, "Time Over!",
                 "ERROR", JOptionPane.ERROR_MESSAGE);
+                    
                     gameover start = new gameover();
                     start.setVisible(true);
                     this.dispose();
@@ -180,7 +173,7 @@ public class start extends javax.swing.JFrame {
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("What is the answer?");
 
-        txt1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        txt1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         txt1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         jLabel5.setBackground(new java.awt.Color(204, 204, 255));
@@ -273,21 +266,23 @@ public class start extends javax.swing.JFrame {
                     "INFORMATION",
                     JOptionPane.INFORMATION_MESSAGE);
              timer.stop();
-
+   
+        // if answer is correct, you will get 5 marks for your score
             score = score+5;
-
-              start m = new start();
-              m.setVisible(true);
-              this.dispose();
+         
+              level1 m = new level1();
+              m.setVisible(true); 
+              this.dispose(); // level1 page again display
              
         } else {
            
             JOptionPane.showMessageDialog(this, "Wrong!! Try Again",
                     "ERROR", JOptionPane.ERROR_MESSAGE);
-            txt1.setText(" ");
+            
+            
             gameover start = new gameover();
             start.setVisible(true);
-            this.dispose();
+            this.dispose();  // move to gameover page
            
            
 
@@ -321,20 +316,21 @@ public class start extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(start.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(level1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(start.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(level1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(start.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(level1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(start.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(level1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new start().setVisible(true);
+                new level1().setVisible(true);
             }
         });
     }

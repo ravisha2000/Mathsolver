@@ -13,11 +13,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import code.DBconnect;
 import code.UserSession;
-import static gui.start.score;
 
 /**
  *
- * @author ebay
+ * @author Ravisha Singhabahu
  */
 public class login extends javax.swing.JFrame {
 
@@ -202,9 +201,9 @@ public class login extends javax.swing.JFrame {
         PreparedStatement ps;
         ResultSet rs;
         String username = txtusername1.getText();
-        
-        
         String password = jPasswordField1.getText();
+        
+     // Check the username and password available in database 
         String query = "SELECT * FROM `user` WHERE `username` =? AND `pw` =?";
         
         try {
@@ -216,15 +215,18 @@ public class login extends javax.swing.JFrame {
             rs = ps.executeQuery();
             
               
-            
+    /* if username and password matches you 
+        entered with username and password in database, then you will move to menu page */    
             if(rs.next())
             {
                      menu n = new menu();
                      n.setVisible(true);
                      this.dispose();   
+            
+        // After successful login (where can get the username)             
             String loggedInUsername = username;
             UserSession.setLoggedInUsername(loggedInUsername);
-                
+               
              } else{
                     JOptionPane.showMessageDialog(null, "Incorrect Username Or Password", "Login Failed", 2);
                 }
