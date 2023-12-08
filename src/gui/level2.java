@@ -271,7 +271,7 @@ public class level2 extends javax.swing.JFrame {
 
         String sol = jLabel5.getText();
         int i = Integer.parseInt(sol.trim());
-
+       // if answer equals to solution:-
         if (i == ans) {
             JOptionPane.showMessageDialog(this, "Correct",
                 "INFORMATION",
@@ -285,9 +285,10 @@ public class level2 extends javax.swing.JFrame {
             this.dispose();
 
         } else {
-
+          // if answer not equals with solution:-
             JOptionPane.showMessageDialog(this, "Wrong!! Try Again",
                 "ERROR", JOptionPane.ERROR_MESSAGE);
+                timer.stop();
             
             gameover start = new gameover();
             start.setVisible(true);

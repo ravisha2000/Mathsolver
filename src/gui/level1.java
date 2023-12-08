@@ -108,7 +108,7 @@ public class level1 extends javax.swing.JFrame {
                      
                  }
              });
-        timer.start();
+              timer.start();
         
              }         
              
@@ -261,7 +261,8 @@ public class level1 extends javax.swing.JFrame {
         String sol = jLabel5.getText();
         int i = Integer.parseInt(sol.trim());
 
-        if (i == ans) {
+          if (i == ans) {   // if answer equals with solution:-
+
             JOptionPane.showMessageDialog(this, "Correct",
                     "INFORMATION",
                     JOptionPane.INFORMATION_MESSAGE);
@@ -275,10 +276,10 @@ public class level1 extends javax.swing.JFrame {
               this.dispose(); // level1 page again display
              
         } else {
-           
+                 // if answer not equals with solution:-
             JOptionPane.showMessageDialog(this, "Wrong!! Try Again",
                     "ERROR", JOptionPane.ERROR_MESSAGE);
-            
+                timer.stop();
             
             gameover start = new gameover();
             start.setVisible(true);
